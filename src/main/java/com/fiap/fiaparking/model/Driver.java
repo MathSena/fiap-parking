@@ -19,6 +19,9 @@ public class Driver {
     @NotBlank(message = "Name is required")
     private String name;
 
+    @NotBlank(message = "CPF is required")
+    private String cpf;
+
     @NotBlank(message = "Address is required")
     private String address;
 
