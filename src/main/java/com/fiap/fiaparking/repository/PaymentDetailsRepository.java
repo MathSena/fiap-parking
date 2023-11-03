@@ -12,4 +12,6 @@ import java.util.List;
 public interface PaymentDetailsRepository extends JpaRepository<PaymentDetails, Long> {
     // Busca detalhes de pagamento de um condutor específico.
     List<PaymentDetails> findByDriver(Driver driver);
+
+    List<PaymentDetails> findByDriverId(Long driverId);
 }

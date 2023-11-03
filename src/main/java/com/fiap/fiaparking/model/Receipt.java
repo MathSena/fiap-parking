@@ -3,8 +3,10 @@ package com.fiap.fiaparking.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -24,5 +26,13 @@ public class Receipt {
 
     @NotNull(message = "Issue date is required")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date issueDate;
+    private LocalDateTime issueDate;
+
+    @NotNull(message = "Amount is required")
+    @Positive(message = "Amount must be positive")
+    private double cost;
+
+    public void setAmount(double cost) {
+        this.cost = cost;
+    }
 }

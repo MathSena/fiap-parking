@@ -14,4 +14,6 @@ public interface ParkingSessionRepository extends JpaRepository<ParkingSession, 
     List<ParkingSession> findByVehicle(Vehicle vehicle);
     // Você pode querer buscar sessões ativas ou histórico de sessões
     List<ParkingSession> findByDriverAndIsActive(Driver driver, boolean isActive);
+
+    List<ParkingSession> findActiveSessionsByVehicleId(Long vehicleId);
 }
