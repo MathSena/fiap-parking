@@ -4,9 +4,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+
 
 @Entity
 @Table(name = "parking_sessions")
@@ -27,7 +28,22 @@ public class ParkingSession {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime endTime;
 
+
+    private boolean isFixed;
+
     @NotNull(message = "Total charge must be defined")
     @Positive(message = "Total charge must be positive")
     private Double totalCharge;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "payment_details_id")
+    private PaymentDetails paymentDetails;
+
+    @Getter
+    @Column(name = "payment_processed")
+    private boolean paymentProcessed = false;
+
+    public void setPaymentProcessed(boolean paymentProcessed) {
+        this.paymentProcessed = paymentProcessed;
+    }
 }

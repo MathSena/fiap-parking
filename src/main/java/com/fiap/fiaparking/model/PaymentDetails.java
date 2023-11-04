@@ -23,4 +23,11 @@ public class PaymentDetails {
 
     @OneToOne(mappedBy = "paymentDetails", fetch = FetchType.LAZY)
     private Driver driver;
+
+    public boolean isPixAndFixedParkingCompatible(boolean isFixedParking) {
+        if (this.paymentType == PaymentType.PIX && !isFixedParking) {
+            throw new IllegalArgumentException("PIX is only available for fixed parking periods.");
+        }
+        return true;
+    }
 }

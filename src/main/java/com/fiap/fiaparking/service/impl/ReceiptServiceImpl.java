@@ -27,7 +27,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         Receipt receipt = new Receipt();
         // Assume we have some business logic to calculate the cost based on the parking session details
         double cost = calculateParkingCost(parkingSession);
-        receipt.setAmount(cost);
+        receipt.setCost(cost);
         receipt.setParkingSession(parkingSession);
         receipt.setIssueDate(LocalDateTime.now());
         // Set other receipt details if necessary

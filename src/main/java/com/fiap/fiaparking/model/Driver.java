@@ -30,4 +30,21 @@ public class Driver {
 
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vehicle> vehicles;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_details_id", referencedColumnName = "id")
+    private PaymentDetails paymentDetails;
+
+    public Vehicle getVehicleById(Long vehicleId) {
+        if (vehicles != null) {
+            for (Vehicle vehicle : vehicles) {
+                if (vehicle.getId().equals(vehicleId)) {
+                    return vehicle;
+                }
+            }
+        }
+        return null; // ou opcionalmente lançar uma exceção se preferir
+    }
+
+
 }
