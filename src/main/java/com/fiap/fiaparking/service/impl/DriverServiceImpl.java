@@ -1,6 +1,11 @@
 package com.fiap.fiaparking.service.impl;
+
 import com.fiap.fiaparking.dtos.DriverDTO;
+import com.fiap.fiaparking.dtos.PaymentDetailsDTO;
+import com.fiap.fiaparking.dtos.VehicleDTO;
+import com.fiap.fiaparking.enums.PaymentType;
 import com.fiap.fiaparking.model.Driver;
+import com.fiap.fiaparking.model.PaymentDetails;
 import com.fiap.fiaparking.model.Vehicle;
 import com.fiap.fiaparking.repository.DriverRepository;
 import com.fiap.fiaparking.service.DriverService;
@@ -33,17 +38,22 @@ public class DriverServiceImpl implements DriverService {
         driver.setAddress(driverDTO.getAddress());
         driver.setEmail(driverDTO.getEmail());
 
-        List<Vehicle> vehicleList = driverDTO.getVehicles().stream().map(vehicleDTO -> {
-            Vehicle vehicle = new Vehicle();
-            vehicle.setLicensePlate(vehicleDTO.getLicensePlate());
-            vehicle.setMake(vehicleDTO.getMake());
-            vehicle.setModel(vehicleDTO.getModel());
-            vehicle.setDriver(driver); // associate the vehicle with the driver here
-            return vehicle;
-        }).collect(Collectors.toList());
+        // Converter e definir os detalhes de pagamento se eles forem fornecidos
+        if (driverDTO.getPaymentDetails() != null && driverDTO.getPaymentDetails().getPaymentType() != PaymentType.PIX) {
+            PaymentDetails paymentDetails = convertToEntity(driverDTO.getPaymentDetails());
+            driver.setPaymentDetails(paymentDetails);
+        }else{
+            log.info("Payment with PIX is not available for this type of user at the time of registration.");
+        }
 
+        // Converter e adicionar a lista de veículos
+        List<Vehicle> vehicleList = driverDTO.getVehicles()
+                .stream()
+                .map(vehicleDTO -> convertToEntity(vehicleDTO, driver))
+                .collect(Collectors.toList());
         driver.setVehicles(vehicleList);
 
+        // Salvar o motorista no banco de dados
         return driverRepository.save(driver);
     }
 
@@ -96,6 +106,25 @@ public class DriverServiceImpl implements DriverService {
 
     public Iterable<Driver> findAllDrivers() {
         return driverRepository.findAll();
+    }
+
+    private Vehicle convertToEntity(VehicleDTO vehicleDTO, Driver driver) {
+        Vehicle vehicle = new Vehicle();
+        vehicle.setLicensePlate(vehicleDTO.getLicensePlate());
+        vehicle.setMake(vehicleDTO.getMake());
+        vehicle.setModel(vehicleDTO.getModel());
+        // Note que aqui você precisa configurar o driver, como está fazendo no código original
+        vehicle.setDriver(driver);
+        return vehicle;
+    }
+
+    private PaymentDetails convertToEntity(PaymentDetailsDTO paymentDetailsDTO) {
+        PaymentDetails paymentDetails = new PaymentDetails();
+        // Supondo que você tenha métodos setters correspondentes na entidade PaymentDetails
+        paymentDetails.setPaymentType(paymentDetailsDTO.getPaymentType());
+        paymentDetails.setPaymentInfo(paymentDetailsDTO.getPaymentInfo());
+        // Configurar outros campos conforme necessário
+        return paymentDetails;
     }
 
 }

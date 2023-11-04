@@ -1,5 +1,6 @@
 package com.fiap.fiaparking.model;
 
+import com.fiap.fiaparking.dtos.PaymentDetailsDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -43,8 +44,9 @@ public class Driver {
                 }
             }
         }
-        return null; // ou opcionalmente lançar uma exceção se preferir
+        return null;
     }
+
 
 
 }
