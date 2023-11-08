@@ -11,6 +11,7 @@ O sistema de parquímetro modernizado atende ao crescente fluxo de estacionament
 - **Maven**: Gerenciador de dependências ([Link](https://mvnrepository.com/))
 - **Lombok**: Biblioteca para redução de código boilerplate
 - **Postman**: Ambiente de desenvolvimento API ([Link](https://www.postman.com/))
+- **MapStruct**: Biblioteca de geração de código
 - **Swagger (OpenAPI)**: Interface para documentação e testes de APIs
 - **MySQL**: Sistema de banco de dados relacional ([Link](https://www.mysql.com/))
 - **Docker**: Criação de ambientes isolados via containers ([Link](https://www.docker.com/))

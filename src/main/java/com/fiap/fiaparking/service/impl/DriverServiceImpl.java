@@ -1,16 +1,14 @@
 package com.fiap.fiaparking.service.impl;
 
-
 import com.fiap.fiaparking.mappers.DriverMapper;
 import com.fiap.fiaparking.model.Driver;
 import com.fiap.fiaparking.model.Vehicle;
 import com.fiap.fiaparking.repository.DriverRepository;
 import com.fiap.fiaparking.repository.VehicleRepository;
 import com.fiap.fiaparking.service.DriverService;
-
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +16,12 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class DriverServiceImpl implements DriverService {
 
-    @Autowired
-    private DriverRepository driverRepository;
-
-    @Autowired
-    private DriverMapper driverMapper;
-
-    @Autowired
-    private VehicleRepository vehicleRepository;
+    private final DriverRepository driverRepository;
+    private final DriverMapper driverMapper;
+    private final VehicleRepository vehicleRepository;
 
     @Override
     public Driver createDriver(Driver driverDTO) {
