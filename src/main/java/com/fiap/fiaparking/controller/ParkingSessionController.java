@@ -1,13 +1,10 @@
 package com.fiap.fiaparking.controller;
 
-
 import com.fiap.fiaparking.dtos.ParkingSessionDTO;
 import com.fiap.fiaparking.model.ParkingSession;
 import com.fiap.fiaparking.repository.ParkingSessionRepository;
 import com.fiap.fiaparking.service.ParkingService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("api/parking")
+@RequiredArgsConstructor
 public class ParkingSessionController {
 
-    @Autowired
-    private ParkingService parkingService;
-
-    @Autowired
-    ParkingSessionRepository parkingRepository;
+    private final ParkingService parkingService;
+    private final ParkingSessionRepository parkingRepository;
 
     @PostMapping
     public ResponseEntity<ParkingSession> createParking(@RequestBody ParkingSessionDTO parkingSessionDTO) {
@@ -53,11 +47,8 @@ public class ParkingSessionController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ParkingSession> updateParkingExit(
-            @PathVariable String id,
-            @RequestBody ParkingSessionDTO parkingSessionDTO
-    ) {
-        return new ResponseEntity<>(
-                parkingService.updateParkingExit(id, parkingSessionDTO), HttpStatus.OK);
+            @PathVariable String id, @RequestBody ParkingSessionDTO parkingSessionDTO) {
+        return new ResponseEntity<>(parkingService.updateParkingExit(id, parkingSessionDTO), HttpStatus.OK);
     }
 
 

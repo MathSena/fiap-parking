@@ -3,22 +3,21 @@ package com.fiap.fiaparking.controller;
 import com.fiap.fiaparking.dtos.PaymentDTO;
 import com.fiap.fiaparking.model.Payment;
 import com.fiap.fiaparking.service.PaymentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/formas-pagamento")
+@RequiredArgsConstructor
 public class PaymentController {
 
-    @Autowired
-    private PaymentService paymentService;
+    private final PaymentService paymentService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) {
         return new ResponseEntity<>(paymentService.createPayment(paymentDTO), HttpStatus.CREATED);
     }

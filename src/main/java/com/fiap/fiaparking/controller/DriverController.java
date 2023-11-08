@@ -3,7 +3,7 @@ package com.fiap.fiaparking.controller;
 import com.fiap.fiaparking.model.Driver;
 import com.fiap.fiaparking.model.Vehicle;
 import com.fiap.fiaparking.service.DriverService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,18 +13,18 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/drivers")
+@RequiredArgsConstructor
 public class DriverController {
 
-    @Autowired
-    private DriverService driverService;
+    private final DriverService driverService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Driver> registerDriver(@RequestBody Driver driver) {
         Driver newDriver = driverService.createDriver(driver);
         return new ResponseEntity<>(newDriver, HttpStatus.CREATED);
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<Driver>> listAllDrivers() {
         List<Driver> drivers = driverService.getAllDrivers();
         return new ResponseEntity<>(drivers, HttpStatus.OK);
@@ -38,8 +38,7 @@ public class DriverController {
     }
 
     @PostMapping("/{driverId}/vehicles")
-    public Driver linkVehicleToDriver(@PathVariable Long driverId,
-                                      @RequestParam String vehicleId) {
+    public Driver linkVehicleToDriver(@PathVariable Long driverId, @RequestParam String vehicleId) {
         return driverService.addVehicleToDriver(driverId, vehicleId);
     }
 

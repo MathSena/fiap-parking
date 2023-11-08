@@ -1,7 +1,6 @@
 package com.fiap.fiaparking.service.impl;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fiap.fiaparking.dtos.ParkingSessionDTO;
 import com.fiap.fiaparking.enums.DurationType;
 import com.fiap.fiaparking.mappers.ParkingMapper;
@@ -11,8 +10,8 @@ import com.fiap.fiaparking.model.Payment;
 import com.fiap.fiaparking.model.Vehicle;
 import com.fiap.fiaparking.repository.DriverRepository;
 import com.fiap.fiaparking.repository.ParkingSessionRepository;
-import com.fiap.fiaparking.repository.PaymentRepository;
 import com.fiap.fiaparking.repository.VehicleRepository;
+import com.fiap.fiaparking.service.NotificationService;
 import com.fiap.fiaparking.service.ParkingService;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -29,9 +28,8 @@ public class ParkingServiceImpl implements ParkingService {
     private final DriverRepository driverRepository;
     private final VehicleRepository vehicleRepository;
     private final ParkingSessionRepository parkingRepository;
+    private final NotificationService notificationService;
     private final ParkingMapper parkingMapper;
-    private final ObjectMapper objectMapper;
-    private final PaymentRepository paymentMethodRepository;
 
     public ParkingSession createParking(ParkingSessionDTO parkingSessionDTO) {
 
@@ -76,7 +74,7 @@ public class ParkingServiceImpl implements ParkingService {
 
         ParkingSession newParking = parkingRepository.save(parking);
 
-        // TODO Send some notification
+        notificationService.sendNotification("Session Parking has been created.");
 
         return newParking;
     }
