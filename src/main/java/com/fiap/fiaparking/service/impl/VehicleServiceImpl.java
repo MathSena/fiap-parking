@@ -1,34 +1,38 @@
 package com.fiap.fiaparking.service.impl;
 
-import com.fiap.fiaparking.model.Driver;
+
+import com.fiap.fiaparking.dtos.VehicleDTO;
 import com.fiap.fiaparking.model.Vehicle;
-import com.fiap.fiaparking.repository.VehicleRepository;
 import com.fiap.fiaparking.service.VehicleService;
-import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class VehicleServiceImpl implements VehicleService {
 
-    private final VehicleRepository vehicleRepository;
 
-
-    @Autowired
-    public VehicleServiceImpl(VehicleRepository vehicleRepository) {
-        this.vehicleRepository = vehicleRepository;
+    @Override
+    public VehicleDTO createVehicle(VehicleDTO vehicleDTO) {
+        return null;
     }
 
     @Override
-    public Vehicle registerVehicle(Vehicle vehicle) {
-        log.info("Registering vehicle with plate number: {}", vehicle.getLicensePlate());
-        return vehicleRepository.save(vehicle);
+    public Vehicle updateVehicle(Vehicle vehicle) {
+        return null;
     }
 
-    public Driver findVehicleById(Long vehicleId) {
-        return vehicleRepository.findById(vehicleId)
-                .orElseThrow(() -> new EntityNotFoundException("Vehicle not found with ID: " + vehicleId));
+    @Override
+    public VehicleDTO getVehicleById(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<VehicleDTO> getAllVehicles() {
+        return null;
     }
 }

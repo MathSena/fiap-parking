@@ -1,37 +1,122 @@
-# Funcionalidades Principais
+# FIAPparking
 
-## 1. Registro de Condutores e Veículos
-- [X] Os condutores podem se registrar no sistema, associando seus dados pessoais, como nome, endereço e informações de contato.
-- [X] Um condutor pode vincular vários veículos à sua conta, facilitando o gerenciamento de múltiplos veículos.
+O sistema de parquímetro modernizado atende ao crescente fluxo de estacionamento urbano, introduzindo funcionalidades avançadas para a gestão de registros de motoristas e veículos, monitoramento do tempo de estacionamento, múltiplas opções de pagamento e emissão automática de recibos.
 
-## 2. Registro de Forma de Pagamento
-- [X] Antes de usar o sistema, o condutor deve registrar sua forma de pagamento preferida, que pode incluir cartão de crédito, débito ou PIX.
-- [X] A opção PIX só está disponível para períodos de estacionamento fixos.
+**Tarifário:** R$ 10,00 por hora de estacionamento.
 
-## 3. Controle de Tempo Estacionado
-- [ ] O sistema permite iniciar o período de estacionamento, oferecendo opções de tempo fixo ou por hora.
-- [ ] Para períodos fixos, o sistema requer que o condutor indique a duração desejada no momento do registro.
-- [ ] Para períodos variáveis, o sistema inicia o tempo de estacionamento automaticamente.
-- [ ] O sistema monitora o tempo com precisão para garantir a cobrança correta.
+## Tecnologias e Ferramentas:
 
-## 4. Alertas de Tempo Estacionado
-- [ ] O sistema inclui um recurso de alerta que notifica o condutor quando o tempo de estacionamento está prestes a expirar, no caso de horário fixo.
-- [ ] Para períodos variáveis, o sistema também emite um alerta informando que o sistema estenderá automaticamente o estacionamento por mais uma hora, a menos que o condutor desligue o registro.
+- **Spring Initializr**: Facilitador para projetos Spring Boot ([Link](https://start.spring.io/))
+- **Spring Boot**: Framework para aplicações web ([Link](https://spring.io/projects/spring-boot))
+- **Maven**: Gerenciador de dependências ([Link](https://mvnrepository.com/))
+- **Lombok**: Biblioteca para redução de código boilerplate
+- **Postman**: Ambiente de desenvolvimento API ([Link](https://www.postman.com/))
+- **Swagger (OpenAPI)**: Interface para documentação e testes de APIs
+- **MySQL**: Sistema de banco de dados relacional ([Link](https://www.mysql.com/))
+- **Docker**: Criação de ambientes isolados via containers ([Link](https://www.docker.com/))
+- **Docker Compose**: Orquestração de containers Docker ([Link](https://docs.docker.com/compose/))
 
-## 5. Opções de Pagamento
-- [ ] Os condutores têm a opção de pagar pelo estacionamento de várias maneiras, incluindo cartão de crédito, débito ou PIX, dependendo da forma de pagamento registrada.
-- [ ] A cobrança é baseada no tempo utilizado; para tempos fixos, o valor total é cobrado independentemente do tempo real utilizado, enquanto para períodos variáveis, a cobrança é por hora completa.
+## Instalação e Configuração:
 
-## 6. Emissão de Recibos
-- [ ] O sistema emite recibos automaticamente sempre que o tempo de estacionamento é encerrado e a cobrança é realizada.
-- [ ] Os recibos fornecem informações detalhadas, incluindo o tempo estacionado, a tarifa aplicada e o valor total pago.
+Pré-requisitos para execução do projeto:
 
-# Fluxo de Trabalho
+- Java 17: [Download](https://www.oracle.com/br/java/technologies/javase-jdk17-downloads.html)
+- Maven: [Download](https://maven.apache.org/download.cgi)
+- MySQL: [Download](https://www.mysql.com/downloads/)
+- Docker: [Download](https://docs.docker.com/get-docker/)
+- Docker Compose: [Download](https://docs.docker.com/compose/install/)
+- Postman: [Download](https://www.postman.com/downloads/)
 
-1. [X] O condutor se registra no sistema, fornecendo informações pessoais.
-2. [X] O condutor registra sua forma de pagamento preferida (cartão de crédito, débito ou PIX).
-3. [ ] O condutor inicia o registro de tempo no sistema, escolhendo entre tempo fixo (indicando a duração desejada) ou por hora.
-4. [ ] O sistema monitora o tempo de estacionamento e cobra o valor adequado com base nas opções de pagamento selecionadas.
-5. [ ] Para horários fixos, o sistema emite um alerta quando o tempo está prestes a expirar.
-6. [ ] Para períodos variáveis, o sistema emite um alerta informando que estenderá automaticamente o estacionamento por mais uma hora, a menos que o condutor desligue o registro.
-7. [ ] Quando o tempo de estacionamento é encerrado, o sistema emite um recibo para o condutor.
+## APIs Desenvolvidas
+
+- API de Motoristas
+- API de Veículos
+- API de Estacionamento
+- API de Formas de Pagamento
+
+
+## Documentação e Testes com Swagger:
+
+Para visualizar e testar as APIs, acesse a interface do Swagger:
+
+- http://localhost:8080/swagger-ui.html
+
+## Execução com Docker:
+
+Para iniciar os serviços, utilize o seguinte comando no terminal:
+
+```shell
+docker-compose up -d
+```
+
+Para parar os serviços, utilize o seguinte comando no terminal:
+
+```shell
+docker-compose down
+```
+
+## Execução com Maven:
+
+Para executar o projeto, utilize o seguinte comando no terminal:
+
+```shell   
+mvn spring-boot:run
+```
+
+## Execução com IDE:
+
+Para executar o projeto, basta executar a classe `FiapParkingApplication.java` em sua IDE.
+
+## Testes com Postman:
+
+Para testar as APIs, importe o arquivo `FiapParking.postman_collection.json` no Postman.
+
+## Banco de Dados:
+
+Para acessar o banco de dados, utilize o seguinte comando no terminal:
+
+```shell
+CREATE DATABASE parquimetro_db;
+```
+
+## Diagrama de Classes:
+
+![Diagrama de Classes](
+
+## Diagrama de Entidade e Relacionamento:
+
+![Diagrama de Entidade e Relacionamento](
+
+## Diagrama de Sequência:
+
+![Diagrama de Sequência](
+
+## Diagrama de Componentes:
+
+![Diagrama de Componentes](
+
+## Diagrama de Implantação:
+
+![Diagrama de Implantação](
+
+## Autores:
+
+
+- **Diogo Valente**: RM 348497
+- **Matheus Sena**: RM 430025
+- **Willian Kaminski**: RM 430025
+
+## Licença:
+
+Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE.md](LICENSE.md) para obter detalhes.
+
+## Referências:
+
+- [Spring Boot Reference Guide](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
+- [Spring Web](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-developing-web-applications)
+- [Spring Data JPA](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-jpa-and-spring-data)
+- [Spring Data JDBC](https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/)
+- [Spring Data JDBC - Reference Documentation](https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/)
+
+
+

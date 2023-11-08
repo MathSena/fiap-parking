@@ -1,22 +1,22 @@
 package com.fiap.fiaparking.service;
 
-import com.fiap.fiaparking.dtos.DriverDTO;
 import com.fiap.fiaparking.model.Driver;
+import com.fiap.fiaparking.model.Vehicle;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 public interface DriverService {
-    Driver registerDriver(DriverDTO driver);
-    Driver findDriverById(Long id);
-    Driver updateDriver(Long id, DriverDTO driver);
-    void deleteDriver(Long id);
-    Driver findDriverVehicles(Long id);
-    Driver findDriverVehicleById(Long id, Long vehicleId);
 
+    Driver createDriver(Driver driverDTO);
 
-    Driver registerDriverVehicle(Long id, DriverDTO driverDTO);
+    Driver updateDriver(Driver driver);
 
-    Driver updateDriverVehicle(Long id, Long vehicleId, DriverDTO driverDTO);
+    Driver getDriverById(Long id);
 
-    Driver deleteDriverVehicle(Long id, Long vehicleId);
+    List<Driver> getAllDrivers();
 
-    Iterable<Driver> findAllDrivers();
+    Driver addVehicleToDriver(Long id, String vehicleId);
+
+    ResponseEntity<List<Vehicle>> getDriverVehicles(String driverId);
 }

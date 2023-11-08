@@ -1,11 +1,20 @@
 package com.fiap.fiaparking.service;
 
-import com.fiap.fiaparking.model.Driver;
+import com.fiap.fiaparking.dtos.VehicleDTO;
 import com.fiap.fiaparking.model.Vehicle;
 
+import java.util.List;
+
 public interface VehicleService {
-    Vehicle registerVehicle(Vehicle vehicle);
-    Driver findVehicleById(Long vehicleId);
-    // ... quaisquer outros métodos que você possa precisar
+
+    VehicleDTO createVehicle(VehicleDTO vehicleDTO);
+
+    Vehicle updateVehicle(Vehicle vehicle);
+
+    VehicleDTO getVehicleById(Long id);
+
+    List<VehicleDTO> getAllVehicles();
+
+
 }
 

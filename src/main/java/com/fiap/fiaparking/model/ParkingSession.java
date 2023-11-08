@@ -1,10 +1,9 @@
 package com.fiap.fiaparking.model;
 
+import com.fiap.fiaparking.enums.DurationType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.Data;
-import lombok.Getter;
 
 import java.time.LocalDateTime;
 
@@ -13,37 +12,39 @@ import java.time.LocalDateTime;
 @Table(name = "parking_sessions")
 @Data
 public class ParkingSession {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Id
+    private String id;
+
+    @NotNull(message = "Entry time cannot be null")
+    @Column(name = "entry_time")
+    private LocalDateTime entry;
+
+    @Column(name = "exit_time")
+    private LocalDateTime exit;
+
+    @NotNull(message = "Parking time type cannot be null")
+    @Column(name = "parking_time_type")
+    private DurationType type;
+
+
+    @ManyToOne
+    @JoinColumn(name = "driver_id")
+    private Driver driver;
+
+
+    @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
-    @NotNull(message = "Start time is required")
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime startTime;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime endTime;
+    @ManyToOne
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
 
 
-    private boolean isFixed;
+    @Column(name = "value")
+    private double value;
 
-    @NotNull(message = "Total charge must be defined")
-    @Positive(message = "Total charge must be positive")
-    private Double totalCharge;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_details_id")
-    private PaymentDetails paymentDetails;
-
-    @Getter
-    @Column(name = "payment_processed")
-    private boolean paymentProcessed = false;
-
-    public void setPaymentProcessed(boolean paymentProcessed) {
-        this.paymentProcessed = paymentProcessed;
-    }
 }

@@ -9,22 +9,23 @@ import lombok.Data;
 @Table(name = "vehicles")
 @Data
 public class Vehicle {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @NotBlank(message = "License plate is required")
-    @Column(unique = true)
+    @Id
+    @Column(name = "license_plate")
     private String licensePlate;
 
-    @NotBlank(message = "Vehicle make is required")
+    @NotBlank(message = "Make is required")
     private String make;
 
-    @NotBlank(message = "Vehicle model is required")
+    @NotBlank(message = "Model is required")
     private String model;
 
-    @ManyToOne
+    @NotBlank(message = "Color is required")
+    private String color;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id")
     @JsonIgnore
-    @JoinColumn(name = "driver_id") // This is the column in the 'vehicle' table that has the foreign key to the 'driver' table.
     private Driver driver;
+
 }
