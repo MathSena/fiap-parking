@@ -18,10 +18,16 @@ public class DriverController {
 
     private final DriverService driverService;
 
-    @PostMapping
-    public ResponseEntity<Driver> registerDriver(@RequestBody Driver driver) {
-        Driver newDriver = driverService.createDriver(driver);
-        return new ResponseEntity<>(newDriver, HttpStatus.CREATED);
+    @PostMapping("/drivers")
+    public ResponseEntity<Driver> createDriver(@RequestBody Driver driver) {
+        // Antes de salvar o driver, associe cada veículo e método de pagamento a ele
+        driver.getVehicles().forEach(vehicle -> vehicle.setDriver(driver));
+        driver.getPaymentMethod().forEach(payment -> payment.setDriver(driver));
+
+
+        Driver savedDriver = driverService.createDriver(driver);
+
+        return new ResponseEntity<>(savedDriver, HttpStatus.CREATED);
     }
 
     @GetMapping

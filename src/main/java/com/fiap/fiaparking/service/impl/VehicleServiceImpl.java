@@ -1,11 +1,13 @@
 package com.fiap.fiaparking.service.impl;
 
 
-import com.fiap.fiaparking.dtos.VehicleDTO;
+
 import com.fiap.fiaparking.model.Vehicle;
+import com.fiap.fiaparking.repository.VehicleRepository;
 import com.fiap.fiaparking.service.VehicleService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,24 +17,23 @@ import java.util.List;
 @AllArgsConstructor
 public class VehicleServiceImpl implements VehicleService {
 
+    @Autowired
+    private VehicleRepository vehicleRepository;
+
 
     @Override
-    public VehicleDTO createVehicle(VehicleDTO vehicleDTO) {
-        return null;
+    public Vehicle createVehicle(Vehicle vehicle) {
+        return vehicleRepository.save(vehicle);
     }
 
     @Override
-    public Vehicle updateVehicle(Vehicle vehicle) {
-        return null;
+    public Vehicle getVehicleById(Long id) {
+        return vehicleRepository.findById(id)
+                .get();
     }
 
     @Override
-    public VehicleDTO getVehicleById(Long id) {
-        return null;
-    }
-
-    @Override
-    public List<VehicleDTO> getAllVehicles() {
-        return null;
+    public List<Vehicle> getAllVehicles() {
+        return vehicleRepository.findAll();
     }
 }

@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 public class ParkingSession {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @NotNull(message = "Entry time cannot be null")
     @Column(name = "entry_time")

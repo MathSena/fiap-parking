@@ -1,6 +1,6 @@
 package com.fiap.fiaparking.controller;
 
-import com.fiap.fiaparking.dtos.ParkingSessionDTO;
+
 import com.fiap.fiaparking.model.ParkingSession;
 import com.fiap.fiaparking.repository.ParkingSessionRepository;
 import com.fiap.fiaparking.service.ParkingService;
@@ -21,8 +21,8 @@ public class ParkingSessionController {
     private final ParkingSessionRepository parkingRepository;
 
     @PostMapping
-    public ResponseEntity<ParkingSession> createParking(@RequestBody ParkingSessionDTO parkingSessionDTO) {
-        ParkingSession newParking = parkingService.createParking(parkingSessionDTO);
+    public ResponseEntity<ParkingSession> createParking(@RequestBody ParkingSession parkingSession) {
+        ParkingSession newParking = parkingService.createParking(parkingSession);
         return new ResponseEntity<>(newParking, HttpStatus.CREATED);
     }
 
@@ -47,8 +47,8 @@ public class ParkingSessionController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ParkingSession> updateParkingExit(
-            @PathVariable String id, @RequestBody ParkingSessionDTO parkingSessionDTO) {
-        return new ResponseEntity<>(parkingService.updateParkingExit(id, parkingSessionDTO), HttpStatus.OK);
+            @PathVariable String id, @RequestBody ParkingSession parkingSession) {
+        return new ResponseEntity<>(parkingService.updateParkingExit(id, parkingSession), HttpStatus.OK);
     }
 
 

@@ -1,6 +1,7 @@
 package com.fiap.fiaparking.controller;
 
-import com.fiap.fiaparking.dtos.PaymentDTO;
+
+import com.fiap.fiaparking.model.Driver;
 import com.fiap.fiaparking.model.Payment;
 import com.fiap.fiaparking.service.PaymentService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,8 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     @PostMapping
-    public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) {
-        return new ResponseEntity<>(paymentService.createPayment(paymentDTO), HttpStatus.CREATED);
+    public ResponseEntity<Driver> createPayment(@RequestBody Payment payment) {
+        return new ResponseEntity<>(paymentService.createPayment(payment), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

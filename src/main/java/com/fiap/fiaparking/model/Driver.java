@@ -13,8 +13,9 @@ import java.util.List;
 @Table(name = "drivers")
 @Data
 public class Driver {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank(message = "Name is required")
@@ -34,6 +35,5 @@ public class Driver {
 
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
     private List<Payment> paymentMethod;
-
 
 }

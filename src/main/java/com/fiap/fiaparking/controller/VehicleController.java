@@ -1,6 +1,7 @@
 package com.fiap.fiaparking.controller;
 
-import com.fiap.fiaparking.dtos.VehicleDTO;
+
+import com.fiap.fiaparking.model.Vehicle;
 import com.fiap.fiaparking.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,22 +18,22 @@ public class VehicleController {
     private final VehicleService vehicleService;
 
     @PostMapping
-    public ResponseEntity<VehicleDTO> createVehicle(@RequestBody VehicleDTO vehicleDTO) {
-        VehicleDTO newVehicleDTO = vehicleService.createVehicle(vehicleDTO);
+    public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle vehicle) {
+        Vehicle newVehicleDTO = vehicleService.createVehicle(vehicle);
         return new ResponseEntity<>(newVehicleDTO, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<VehicleDTO>> getAllVehicles() {
-        List<VehicleDTO> allVehicles = vehicleService.getAllVehicles();
+    public ResponseEntity<List<Vehicle>> getAllVehicles() {
+        List<Vehicle> allVehicles = vehicleService.getAllVehicles();
         return new ResponseEntity<>(allVehicles, HttpStatus.OK);
     }
 
     @GetMapping("/{veiculoId}")
-    public ResponseEntity<VehicleDTO> getVehicle(@PathVariable Long vehicleId) {
+    public ResponseEntity<Vehicle> getVehicle(@PathVariable Long vehicleId) {
         try {
-            VehicleDTO newVehicleDTO = vehicleService.getVehicleById(vehicleId);
-            return new ResponseEntity<>(newVehicleDTO, HttpStatus.OK);
+            Vehicle newVehicle = vehicleService.getVehicleById(vehicleId);
+            return new ResponseEntity<>(newVehicle, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

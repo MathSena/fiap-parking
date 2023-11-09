@@ -1,9 +1,7 @@
 package com.fiap.fiaparking.service.impl;
 
 
-import com.fiap.fiaparking.dtos.ParkingSessionDTO;
 import com.fiap.fiaparking.enums.DurationType;
-import com.fiap.fiaparking.mappers.ParkingMapper;
 import com.fiap.fiaparking.model.Driver;
 import com.fiap.fiaparking.model.ParkingSession;
 import com.fiap.fiaparking.model.Payment;
@@ -28,55 +26,34 @@ public class ParkingServiceImpl implements ParkingService {
     private final DriverRepository driverRepository;
     private final VehicleRepository vehicleRepository;
     private final ParkingSessionRepository parkingRepository;
-    private final NotificationService notificationService;
-    private final ParkingMapper parkingMapper;
 
-    public ParkingSession createParking(ParkingSessionDTO parkingSessionDTO) {
 
-        String driverId = String.valueOf(parkingSessionDTO.getDriverId());
-        Optional<Driver> isDriver = driverRepository.findById(Long.valueOf(driverId));
+
+    public ParkingSession createParking(ParkingSession parkingSession) {
+
+        Long driverId = parkingSession.getDriver().getId();
+        Optional<Driver> isDriver = driverRepository.findById(driverId);
 
         if (isDriver.isEmpty()) {
             throw new DataIntegrityViolationException("Driver with ID not found: " + driverId);
         }
 
-        String vehicleId = String.valueOf(parkingSessionDTO.getVehicleId());
-        Optional<Vehicle> isVehicle = vehicleRepository.findById(Long.valueOf(vehicleId));
+        Long vehicleId = parkingSession.getVehicle().getId();
+        Optional<Vehicle> isVehicle = vehicleRepository.findById(vehicleId);
 
         if (isVehicle.isEmpty()) {
             throw new DataIntegrityViolationException("Vehicle with ID not found: " + vehicleId);
         }
 
-        if (isDriver.get()
-                .getVehicles()
-                .stream()
-                .noneMatch(vehicle -> vehicle.getLicensePlate()
-                        .equals(vehicleId))) {
-            String errorMessage = "The vehicle is not associated with the driver. Vehicle ID: " + vehicleId + ", Driver ID: " + driverId;
-            throw new DataIntegrityViolationException(errorMessage);
-        }
+        parkingSession.setDriver(isDriver.get());
+        parkingSession.setVehicle(isVehicle.get());
+        parkingSession.setType(DurationType.FIXED);
+        parkingSession.setEntry(LocalDateTime.now());
+        parkingSession.setExit(null);
+        parkingSession.setValue(0.0);
+        parkingSession.setPayment(null);
+        return parkingRepository.save(parkingSession);
 
-        ParkingSession parking = parkingMapper.toParkingSessionEntity(parkingSessionDTO);
-
-        if (parkingSessionDTO.getType() == DurationType.FIXED) {
-            // informing exit is mandatory
-            if (parkingSessionDTO.getExit() == null) {
-                throw new DataIntegrityViolationException("Informing the exit is mandatory for fixed time.");
-            }
-        } else {
-            if (parkingSessionDTO.getExit() != null) {
-                throw new DataIntegrityViolationException("Exit can only be informed when parking type is FIXED_PERIOD");
-            }
-        }
-
-        parking.setDriver(isDriver.get());
-        parking.setVehicle(isVehicle.get());
-
-        ParkingSession newParking = parkingRepository.save(parking);
-
-        notificationService.sendNotification("Session Parking has been created.");
-
-        return newParking;
     }
 
     public List<ParkingSession> findParkingsWithExpiringTime() {
@@ -85,7 +62,7 @@ public class ParkingServiceImpl implements ParkingService {
         return parkingRepository.findAllByExitIsNullAndEntryLessThanEqual(timeMinutesBefore);
     }
 
-    public ParkingSession updateParkingExit(String id, ParkingSessionDTO parkingSessionDTO) {
+    public ParkingSession updateParkingExit(String id, ParkingSession parkingSessionDTO) {
         ParkingSession parking = parkingRepository.findById(Long.valueOf(id))
                 .orElseThrow(() -> new DataIntegrityViolationException("Parking not found with ID: "
                         + id));
