@@ -40,7 +40,7 @@ Pré-requisitos para execução do projeto:
 
 Para visualizar e testar as APIs, acesse a interface do Swagger:
 
-- http://localhost:8080/swagger-ui.html
+- http://localhost:8080/swagger-ui/index.html
 
 ## Execução com Docker:
 
@@ -85,10 +85,7 @@ CREATE DATABASE parquimetro_db;
 ![](/Users/mathsena/Desktop/fiap/fiaparking/Fiaparking/images/diagrama.png)(
 
 
-
-
 ## Autores:
-
 
 - **Diogo Valente**: RM 348497
 - **Matheus Sena**: RM 430025
