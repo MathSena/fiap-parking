@@ -81,8 +81,8 @@ CREATE DATABASE parquimetro_db;
 ```
 
 ## Diagrama de Classes:
+![Diagrama de Classes](images/diagrama.png)
 
-![](/Users/mathsena/Desktop/fiap/fiaparking/Fiaparking/images/diagrama.png)(
 
 
 ## Autores:
