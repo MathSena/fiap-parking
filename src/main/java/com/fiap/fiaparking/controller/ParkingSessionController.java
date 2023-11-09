@@ -47,7 +47,7 @@ public class ParkingSessionController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ParkingSession> updateParkingExit(
-            @PathVariable String id, @RequestBody ParkingSession parkingSession) {
+            @PathVariable Long id, @RequestBody ParkingSession parkingSession) {
         return new ResponseEntity<>(parkingService.updateParkingExit(id, parkingSession), HttpStatus.OK);
     }
 

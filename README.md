@@ -70,7 +70,7 @@ Para executar o projeto, basta executar a classe `FiapParkingApplication.java` e
 
 ## Testes com Postman:
 
-Para testar as APIs, importe o arquivo `FiapParking.postman_collection.json` no Postman.
+Para testar as APIs, importe o arquivo `FIAP Parking.postman_collection.json` no Postman.
 
 ## Banco de Dados:
 
@@ -82,23 +82,10 @@ CREATE DATABASE parquimetro_db;
 
 ## Diagrama de Classes:
 
-![Diagrama de Classes](
+![](/Users/mathsena/Desktop/fiap/fiaparking/Fiaparking/images/diagrama.png)(
 
-## Diagrama de Entidade e Relacionamento:
 
-![Diagrama de Entidade e Relacionamento](
 
-## Diagrama de Sequência:
-
-![Diagrama de Sequência](
-
-## Diagrama de Componentes:
-
-![Diagrama de Componentes](
-
-## Diagrama de Implantação:
-
-![Diagrama de Implantação](
 
 ## Autores:
 

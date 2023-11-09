@@ -4,12 +4,10 @@ package com.fiap.fiaparking.service.impl;
 import com.fiap.fiaparking.enums.DurationType;
 import com.fiap.fiaparking.model.Driver;
 import com.fiap.fiaparking.model.ParkingSession;
-import com.fiap.fiaparking.model.Payment;
 import com.fiap.fiaparking.model.Vehicle;
 import com.fiap.fiaparking.repository.DriverRepository;
 import com.fiap.fiaparking.repository.ParkingSessionRepository;
 import com.fiap.fiaparking.repository.VehicleRepository;
-import com.fiap.fiaparking.service.NotificationService;
 import com.fiap.fiaparking.service.ParkingService;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -28,17 +26,18 @@ public class ParkingServiceImpl implements ParkingService {
     private final ParkingSessionRepository parkingRepository;
 
 
-
     public ParkingSession createParking(ParkingSession parkingSession) {
 
-        Long driverId = parkingSession.getDriver().getId();
+        Long driverId = parkingSession.getDriver()
+                .getId();
         Optional<Driver> isDriver = driverRepository.findById(driverId);
 
         if (isDriver.isEmpty()) {
             throw new DataIntegrityViolationException("Driver with ID not found: " + driverId);
         }
 
-        Long vehicleId = parkingSession.getVehicle().getId();
+        Long vehicleId = parkingSession.getVehicle()
+                .getId();
         Optional<Vehicle> isVehicle = vehicleRepository.findById(vehicleId);
 
         if (isVehicle.isEmpty()) {
@@ -50,8 +49,6 @@ public class ParkingServiceImpl implements ParkingService {
         parkingSession.setType(DurationType.FIXED);
         parkingSession.setEntry(LocalDateTime.now());
         parkingSession.setExit(null);
-        parkingSession.setValue(0.0);
-        parkingSession.setPayment(null);
         return parkingRepository.save(parkingSession);
 
     }
@@ -62,22 +59,17 @@ public class ParkingServiceImpl implements ParkingService {
         return parkingRepository.findAllByExitIsNullAndEntryLessThanEqual(timeMinutesBefore);
     }
 
-    public ParkingSession updateParkingExit(String id, ParkingSession parkingSessionDTO) {
-        ParkingSession parking = parkingRepository.findById(Long.valueOf(id))
-                .orElseThrow(() -> new DataIntegrityViolationException("Parking not found with ID: "
-                        + id));
+    public ParkingSession updateParkingExit(Long id, ParkingSession parkingSessionDTO) {
+        Optional<ParkingSession> parkingOptional = parkingRepository.findById(id);
 
-        if (parking.getType() != DurationType.FIXED) {
-            throw new DataIntegrityViolationException("Only parkings of type HOURLY can have their " +
-                    "exit time updated.");
+        if (parkingOptional.isEmpty()) {
+            throw new DataIntegrityViolationException("Parking with ID not found: " + id);
         }
 
-        parking.getDriver()
-                .getPaymentMethod()
-                .stream()
-                .map(Payment::getId)
-                .noneMatch(paymentMethodId -> false);
-        throw new DataIntegrityViolationException("Payment method not found for the driver.");
+        ParkingSession parking = parkingOptional.get();
+        parking.setExit(LocalDateTime.now());
+        calculateValue(parking);
+        return parkingRepository.save(parking);
 
     }
 
@@ -85,11 +77,11 @@ public class ParkingServiceImpl implements ParkingService {
         if (parking.getEntry() != null && parking.getExit() != null) {
             long minutesParked = Duration.between(parking.getEntry(), parking.getExit())
                     .toMinutes();
-            double hoursParked = minutesParked / 60.0;
+            double hoursParked = minutesParked / 0.60;
 
             int fullHours = (int) Math.ceil(hoursParked);
 
-            parking.setValue(fullHours * 10);
+            parking.setParkingValue(fullHours * 10);
         }
     }
 }

@@ -12,7 +12,7 @@ public interface ParkingService {
 
     List<ParkingSession> findParkingsWithExpiringTime();
 
-    ParkingSession updateParkingExit(String id, ParkingSession parkingSessionDTO);
+    ParkingSession updateParkingExit(Long id, ParkingSession parkingSession);
 
     void calculateValue(ParkingSession parking);
 }
