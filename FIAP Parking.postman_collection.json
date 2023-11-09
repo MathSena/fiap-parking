@@ -1,0 +1,81 @@
+{
+	"info": {
+		"_postman_id": "5a388b28-5708-4ae9-82d7-585b663751cc",
+		"name": "FIAP Parking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29521078"
+	},
+	"item": [
+		{
+			"name": "Create Driver",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"João Beto\",\n  \"cpf\": \"123.456.789-00\",\n  \"address\": \"Rua dos Desenvolvedores, 1000\",\n  \"email\": \"joao.silva@email.com\",\n  \"vehicles\": [\n    {\n      \"make\": \"Honda\",\n      \"model\": \"Civic\",\n      \"color\": \"Black\",\n      \"licensePlate\": \"XYZ1X23\",\n      \"year\": 2019\n    }\n  ],\n  \"paymentMethod\": [\n    {\n      \"type\": \"CREDIT_CARD\",\n      \"paymentDetails\": \"MasterCard ending in 1234\",\n      \"date\": \"2023-01-01\"\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/drivers/drivers"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Parking Session",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"entry\": \"2023-11-08T12:00:00\",\n  \"exit\": \"2023-11-08T14:00:00\",\n  \"type\": \"FIXED\",\n  \"driver\": {\n    \"id\": 1,\n    \"name\": \"João Beto\",\n    \"cpf\": \"123.456.789-00\",\n    \"address\": \"Rua dos Desenvolvedores, 1000\",\n    \"email\": \"joao.silva@email.com\",\n    \"vehicles\": [],\n    \"paymentMethod\": []\n  },\n  \"vehicle\": {\n      \"id\": 1,\n    \"licensePlate\": \"XYZ1X23\",\n    \"make\": \"Honda\",\n    \"model\": \"Civic\",\n    \"color\": \"Black\",\n    \"year\": 2019\n  },\n  \"payment\": {\n    \"id\": 1,\n    \"type\": \"CREDIT_CARD\",\n    \"paymentDetails\": \"MasterCard ending in 1234\",\n    \"date\": \"2023-01-01\"\n  },\n  \"parkingValue\": 5.00\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/parking"
+			},
+			"response": []
+		},
+		{
+			"name": "Calculate Price",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"entry\": \"2023-11-08T12:00:00\",\n  \"exit\": \"2023-11-08T14:00:00\",\n  \"type\": \"FIXED\",\n  \"driver\": {\n    \"id\": 1,\n    \"name\": \"João Beto\",\n    \"cpf\": \"123.456.789-00\",\n    \"address\": \"Rua dos Desenvolvedores, 1000\",\n    \"email\": \"joao.silva@email.com\",\n    \"vehicles\": [],\n    \"paymentMethod\": []\n  },\n  \"vehicle\": {\n      \"id\": 1,\n    \"licensePlate\": \"XYZ1X23\",\n    \"make\": \"Honda\",\n    \"model\": \"Civic\",\n    \"color\": \"Black\",\n    \"year\": 2019\n  },\n  \"payment\": {\n    \"id\": 1,\n    \"type\": \"CREDIT_CARD\",\n    \"paymentDetails\": \"MasterCard ending in 1234\",\n    \"date\": \"2023-01-01\"\n  },\n  \"parkingValue\": 5.00\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/parking/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Drivers",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get Driver By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/drivers/1"
+			},
+			"response": []
+		}
+	]
+}

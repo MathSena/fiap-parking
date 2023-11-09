@@ -11,6 +11,9 @@ import lombok.Data;
 public class Vehicle {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @Column(name = "license_plate")
     private String licensePlate;
 

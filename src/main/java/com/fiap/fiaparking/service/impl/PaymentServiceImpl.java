@@ -1,7 +1,5 @@
 package com.fiap.fiaparking.service.impl;
 
-import com.fiap.fiaparking.dtos.PaymentDTO;
-import com.fiap.fiaparking.mappers.PaymentMapper;
 import com.fiap.fiaparking.model.Driver;
 import com.fiap.fiaparking.model.Payment;
 import com.fiap.fiaparking.repository.DriverRepository;
@@ -25,17 +23,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private PaymentRepository paymentRepository;
 
-    @Autowired
-    private PaymentMapper paymentMapper;
-
-    public PaymentDTO createPayment(PaymentDTO paymentDTO) {
-        String driverId = String.valueOf(paymentDTO.getDriver().getId());
+    public Driver createPayment(Payment payment) {
+        String driverId = String.valueOf(payment.getDriver().getId());
         Optional<Driver> driver = driverRepository.findById(Long.valueOf(driverId));
         if (driver.isEmpty()) {
             throw new DataIntegrityViolationException("Condutor com ID não encontrado: " + driverId);
         }
 
-        Payment newPayment = paymentRepository.save(paymentMapper.toPaymentEntity(paymentDTO));
+        Payment newPayment = paymentRepository.save(payment);
         Driver newDriver = driver.get();
 
         if (newDriver.getPaymentMethod() == null) {
@@ -43,8 +38,7 @@ public class PaymentServiceImpl implements PaymentService {
         } else {
             newDriver.getPaymentMethod().add(newPayment);
         }
-        driverRepository.save(newDriver);
-        return paymentMapper.toPaymentDTO(newPayment);
+        return driverRepository.save(newDriver);
     }
 
     public Optional<Payment> getPaymentById(Long id) {

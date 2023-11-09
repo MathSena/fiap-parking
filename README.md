@@ -40,7 +40,7 @@ Pré-requisitos para execução do projeto:
 
 Para visualizar e testar as APIs, acesse a interface do Swagger:
 
-- http://localhost:8080/swagger-ui.html
+- http://localhost:8080/swagger-ui/index.html
 
 ## Execução com Docker:
 
@@ -70,7 +70,7 @@ Para executar o projeto, basta executar a classe `FiapParkingApplication.java` e
 
 ## Testes com Postman:
 
-Para testar as APIs, importe o arquivo `FiapParking.postman_collection.json` no Postman.
+Para testar as APIs, importe o arquivo `FIAP Parking.postman_collection.json` no Postman.
 
 ## Banco de Dados:
 
@@ -82,26 +82,10 @@ CREATE DATABASE parquimetro_db;
 
 ## Diagrama de Classes:
 
-![Diagrama de Classes](
+![](/Users/mathsena/Desktop/fiap/fiaparking/Fiaparking/images/diagrama.png)(
 
-## Diagrama de Entidade e Relacionamento:
-
-![Diagrama de Entidade e Relacionamento](
-
-## Diagrama de Sequência:
-
-![Diagrama de Sequência](
-
-## Diagrama de Componentes:
-
-![Diagrama de Componentes](
-
-## Diagrama de Implantação:
-
-![Diagrama de Implantação](
 
 ## Autores:
-
 
 - **Diogo Valente**: RM 348497
 - **Matheus Sena**: RM 430025

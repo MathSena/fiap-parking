@@ -1,6 +1,6 @@
 package com.fiap.fiaparking.service.impl;
 
-import com.fiap.fiaparking.mappers.DriverMapper;
+
 import com.fiap.fiaparking.model.Driver;
 import com.fiap.fiaparking.model.Vehicle;
 import com.fiap.fiaparking.repository.DriverRepository;
@@ -20,14 +20,13 @@ import java.util.List;
 public class DriverServiceImpl implements DriverService {
 
     private final DriverRepository driverRepository;
-    private final DriverMapper driverMapper;
+
     private final VehicleRepository vehicleRepository;
 
     @Override
-    public Driver createDriver(Driver driverDTO) {
-        log.info("Creating a new driver with ID: {}", driverDTO.getId());
-        Driver newDriver = driverMapper.toDriverEntity(driverDTO);
-        Driver savedDriver = driverRepository.save(newDriver);
+    public Driver createDriver(Driver driver) {
+        log.info("Creating a new driver with ID: {}", driver.getId());
+        Driver savedDriver = driverRepository.save(driver);
         log.info("New driver created with ID: {}", savedDriver.getId());
         return savedDriver;
     }
